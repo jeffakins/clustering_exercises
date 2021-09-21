@@ -87,3 +87,20 @@ select count(*) from
 
 select * from predictions_2017
 where parcelid = 11721753;
+
+
+-- ------------
+
+
+
+SELECT * 
+FROM properties_2017 AS prop
+JOIN 
+	(
+   SELECT parcelid, max(transactiondate) AS transactiondate
+	FROM predictions_2017
+	GROUP BY parcelid
+	) AS txn ON prop.parcelid = txn.parcelid      
+JOIN predictions_2017 AS pred ON prop.parcelid = pred.parcelid AND pred.transactiondate = txn.transactiondate 
+LEFT JOIN airconditioningtype AS ac ON prop.airconditioningtypeid = ac.airconditioningtypeid
+;
