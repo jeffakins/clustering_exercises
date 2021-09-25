@@ -24,7 +24,6 @@ FROM   properties_2017 prop
        INNER JOIN (SELECT parcelid,
                    Max(transactiondate) transactiondate
                    FROM   predictions_2017
-
                    GROUP  BY parcelid) pred
                USING (parcelid)
                			JOIN predictions_2017 as pred USING (parcelid, transactiondate)
